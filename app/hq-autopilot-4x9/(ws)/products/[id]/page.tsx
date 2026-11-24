@@ -56,8 +56,8 @@ export default async function ProductDetail({ params, searchParams }: { params: 
         <p className="small muted">draft → pending review → approved → published. Rejection returns it to drafts with a note. Only the Owner approves and publishes.</p>
         <div className="row">
           {edit && ["draft", "rejected"].includes(s) && <T id={id} to="submit" label="Submit for review" cls="btn btn-primary btn-sm" />}
-          {owner && s === "pending" && <><T id={id} to="approve_publish" label="Approve & publish" cls="btn btn-primary btn-sm" confirm="Approve and make this product public?" /><T id={id} to="approve" label="Approve only" /><T id={id} to="request_changes" label="Request changes" note /><T id={id} to="reject" label="Reject" cls="btn btn-danger btn-sm" note /></>}
-          {owner && s === "approved" && <T id={id} to="publish" label="Publish" cls="btn btn-primary btn-sm" confirm="Make this product public?" />}
+          {owner && s === "pending" && <><T id={id} to="approve_publish" label="Approve & publish" cls="btn btn-primary btn-sm" /><T id={id} to="approve" label="Approve only" /><T id={id} to="request_changes" label="Request changes" note /><T id={id} to="reject" label="Reject" cls="btn btn-danger btn-sm" note /></>}
+          {owner && s === "approved" && <T id={id} to="publish" label="Publish" cls="btn btn-primary btn-sm" />}
           {owner && s === "published" && <T id={id} to="unpublish" label="Unpublish" confirm="Remove from the public store?" />}
           {owner && s === "published" && <T id={id} to={p.featured_flag ? "unfeature" : "feature"} label={p.featured_flag ? "Remove from featured" : "Feature on home"} />}
           {edit && s !== "archived" && (owner || s !== "published") && <T id={id} to="archive" label="Archive" confirm="Archive this product? It will be hidden from the store." />}
