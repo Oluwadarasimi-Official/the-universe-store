@@ -57,7 +57,7 @@ export default async function Settings({ searchParams }: { searchParams: Promise
         <h2 style={{ fontSize: "1rem" }}>Demo data</h2>
         <p className="small muted">Demo products are labelled “Demo” everywhere, have no prices, links or ratings, are excluded from the sitemap and analytics, and are marked noindex. Currently: <b>{demoCount ?? 0}</b> demo product(s).</p>
         <div className="row">
-          <form action={demoAction}><input type="hidden" name="to" value="remove" /><Submit className="btn btn-danger" confirm="Remove ALL demo products, demo guides and demo analytics? Real data is not touched.">Remove all demo data</Submit></form>
+          <form action={demoAction}><input type="hidden" name="to" value="remove" /><Submit className="btn btn-danger">Remove all demo data</Submit></form>
           <form action={demoAction}><input type="hidden" name="to" value="load" /><Submit className="btn btn-outline">Load demo data</Submit></form>
           <form action={demoAction}><input type="hidden" name="to" value="categories" /><Submit className="btn btn-outline">Ensure starter categories</Submit></form>
         </div>
