@@ -47,7 +47,7 @@ export default async function Overview({ searchParams }: { searchParams: Promise
       <section className="card card-pad" style={{ marginTop: 16 }}>
         <h2 style={{ fontSize: "1.05rem" }}>Launch checklist</h2>
         <ul className="small" style={{ paddingLeft: 18, margin: 0 }}>
-          <li>Get your Jumia affiliate (JForce) account approved, then paste the tracking links it issues into each product.</li>
+          <li>Get your AliExpress affiliate account approved, then paste the tracking links it issues into each product.</li>
           <li>Open each link, confirm it in your affiliate dashboard, then mark it “Verified by owner” in Affiliate Links.</li>
           <li>Add real products, submit for review, approve and publish.</li>
           <li>Set your public contact email and social links in Settings.</li>

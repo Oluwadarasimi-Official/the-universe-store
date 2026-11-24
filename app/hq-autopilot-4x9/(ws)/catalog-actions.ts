@@ -62,7 +62,7 @@ export async function saveProduct(fd: FormData) {
       full_description: optStr(fd, "full_description"),
       category_id: optStr(fd, "category_id"),
       brand: optStr(fd, "brand"),
-      retailer_name: str(fd, "retailer_name") || "Jumia",
+      retailer_name: str(fd, "retailer_name") || "AliExpress",
       canonical_product_url: optStr(fd, "canonical_product_url"),
       displayed_price: priceRaw ? Number(priceRaw.replace(/,/g, "")) : null,
       currency: optStr(fd, "currency")?.toUpperCase() ?? null,

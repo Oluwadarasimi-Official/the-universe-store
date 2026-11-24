@@ -29,7 +29,7 @@ export default async function Footer() {
         </div>
       </div>
       <div className="wrap footer-bottom">
-        © {new Date().getFullYear()} The Universe Store. Independent product-discovery site — not owned, operated or endorsed by Jumia or any retailer. Prices, stock, shipping and returns are set by the retailer.
+        © {new Date().getFullYear()} The Universe Store. Independent product-discovery site — not owned, operated or endorsed by AliExpress or any retailer. Prices, stock, shipping and returns are set by the retailer.
       </div>
     </footer>
   );

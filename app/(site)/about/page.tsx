@@ -12,7 +12,7 @@ export default function About() {
       <h2>How it works</h2>
       <ul>
         <li>We curate products and write short, factual descriptions based on the retailer&apos;s listing and other information we can verify.</li>
-        <li>When you click a retailer button such as “View on Jumia”, you leave our site and complete your purchase with that retailer.</li>
+        <li>When you click a retailer button such as “View on AliExpress”, you leave our site and complete your purchase with that retailer.</li>
         <li>The retailer — not The Universe Store — sets the price, stock, delivery, returns and final purchase terms.</li>
         <li>Some links are affiliate links. We may earn a commission from qualifying purchases. <Link href="/affiliate-disclosure">Read our disclosure</Link>.</li>
       </ul>
@@ -23,7 +23,7 @@ export default function About() {
         <li>Every product and guide is reviewed and approved by a person before it is published.</li>
         <li>We don&apos;t list age-restricted or unsafe product categories.</li>
       </ul>
-      <p>We are not owned by, endorsed by or officially connected to Jumia or any other retailer.</p>
+      <p>We are not owned by, endorsed by or officially connected to AliExpress or any other retailer.</p>
       <p><Link className="btn btn-primary" href="/discover">Discover products</Link></p>
     </div>
   );

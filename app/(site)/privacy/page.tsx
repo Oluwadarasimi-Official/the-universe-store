@@ -25,7 +25,7 @@ export default async function Privacy() {
       <h2>Contact and report forms</h2>
       <p>If you use the contact or report form, we store the message and any name or email address you choose to give, so we can reply or fix the issue. Do not include sensitive personal information.</p>
       <h2>Retailers and affiliate links</h2>
-      <p>When you click a retailer link you leave this site. The retailer (for example Jumia) and its affiliate programme may use cookies and collect data under their own privacy policy.</p>
+      <p>When you click a retailer link you leave this site. The retailer (for example AliExpress) and its affiliate programme may use cookies and collect data under their own privacy policy.</p>
       <h2>Service providers</h2>
       <p>The site is hosted on Vercel and uses Supabase for its database. These providers process data on our behalf.</p>
       <h2>Retention</h2>

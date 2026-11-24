@@ -197,14 +197,14 @@ export async function importProducts(fd: FormData) {
       const priceOk = price !== null && Number.isFinite(price) && /^[A-Z]{3}$/.test(String(r.currency || "")) && !!r.price_checked_at;
       const { data: p, error } = await db().from("products").insert({
         title: title.slice(0, 160), slug, short_description: r.short_description || null, full_description: r.full_description || null, category_id: cat?.id ?? null,
-        brand: r.brand || null, retailer_name: r.retailer_name || "Jumia", canonical_product_url: isHttpUrl(r.canonical_product_url) ? r.canonical_product_url : null,
+        brand: r.brand || null, retailer_name: r.retailer_name || "AliExpress", canonical_product_url: isHttpUrl(r.canonical_product_url) ? r.canonical_product_url : null,
         displayed_price: priceOk ? price : null, currency: priceOk ? r.currency : null, price_checked_at: priceOk ? r.price_checked_at : null,
         tags: String(r.tags || "").split(/[,;|]/).map((t) => t.trim().toLowerCase()).filter(Boolean), source_notes: `Imported ${new Date().toISOString().slice(0, 10)}. ${r.source_notes || ""}`.trim(),
         editorial_status: "draft", created_by: me.user_id,
       }).select("id").single();
       if (error) { skipped.push(`row ${i + 2}: ${error.message}`); continue; }
       if (isHttpUrl(r.affiliate_url)) {
-        const { error: le } = await db().from("affiliate_links").insert({ product_id: p.id, url: r.affiliate_url, retailer: r.retailer_name || "Jumia" });
+        const { error: le } = await db().from("affiliate_links").insert({ product_id: p.id, url: r.affiliate_url, retailer: r.retailer_name || "AliExpress" });
         if (le) skipped.push(`row ${i + 2}: link not attached (${le.message.includes("duplicate") ? "duplicate URL" : le.message})`);
       }
       created++;

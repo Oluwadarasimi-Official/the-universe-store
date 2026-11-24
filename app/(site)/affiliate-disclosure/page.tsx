@@ -12,7 +12,7 @@ export default async function AffiliateDisclosure() {
       <h1>Affiliate disclosure</h1>
       <p className="notice">{s.disclosure}</p>
       <h2>What this means</h2>
-      <p>The Universe Store participates, or intends to participate, in affiliate programmes run by retailers such as Jumia (for example through the Jumia affiliate/JForce programme, once approved). When you click certain links on this site and then make a qualifying purchase, the retailer may pay us a commission.</p>
+      <p>The Universe Store participates in the AliExpress affiliate programme. When you click certain links on this site and then make a qualifying purchase, AliExpress may pay us a commission.</p>
       <p>Commission rates, attribution windows, returns and whether a commission is approved are decided by the affiliate programme, not by us. We do not state specific commission rates.</p>
       <h2>How we keep it honest</h2>
       <ul>
@@ -23,7 +23,7 @@ export default async function AffiliateDisclosure() {
       </ul>
       <h2>Retailer responsibility</h2>
       <p>The Universe Store is not the seller. Pricing, availability, shipping, returns, warranties and purchase terms are determined by the retailer and may change at any time. Please review them on the retailer&apos;s site before buying.</p>
-      <p>The Universe Store is not owned by, endorsed by or officially operated by Jumia or any retailer we link to.</p>
+      <p>The Universe Store is not owned by, endorsed by or officially operated by AliExpress or any retailer we link to.</p>
     </div>
   );
 }

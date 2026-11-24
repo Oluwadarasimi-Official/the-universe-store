@@ -28,7 +28,7 @@ export default async function Analytics({ searchParams }: { searchParams: Promis
         <div className="card stat"><b>{s.outboundClicks}</b><span>Outbound retailer clicks</span></div>
         <div className="card stat"><b>{s.ctr}</b><span>Click-through rate (clicks ÷ product views)</span></div>
       </div>
-      <div className="notice" style={{ marginBottom: 16 }}><b>Purchases & commissions: Not available in this dashboard.</b> Conversions, attribution windows, returns and commission approval are controlled by your affiliate programme — check your JForce dashboard. Visits/unique visitors are not tracked (no cookies), so “page events” counts every view.</div>
+      <div className="notice" style={{ marginBottom: 16 }}><b>Purchases & commissions: Not available in this dashboard.</b> Conversions, attribution windows, returns and commission approval are controlled by your affiliate programme — check your AliExpress affiliate dashboard. Visits/unique visitors are not tracked (no cookies), so “page events” counts every view.</div>
       <div className="split">
         <section><h2 style={{ fontSize: "1rem" }}>Top products</h2><Tbl head={["Product", "Views", "Clicks", "CTR"]} rows={s.topProducts.map((p) => [p.title, p.views, p.clicks, p.ctr])} /></section>
         <section><h2 style={{ fontSize: "1rem" }}>Top content pages</h2><Tbl head={["Path", "Views"]} rows={s.topPages.map((p) => [p.path, p.views])} /></section>

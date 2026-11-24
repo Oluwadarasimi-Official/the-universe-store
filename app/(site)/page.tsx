@@ -93,7 +93,7 @@ export default async function Home() {
 
       <section className="section">
         <div className="wrap"><div className="card card-pad row between">
-          <div><h3 style={{ margin: 0 }}>How The Universe Store works</h3><p className="small muted" style={{ margin: "6px 0 0" }}>We curate and describe products. When you click “View on Jumia” (or another retailer), you complete your purchase on their site — they handle price, stock, delivery and returns.</p></div>
+          <div><h3 style={{ margin: 0 }}>How The Universe Store works</h3><p className="small muted" style={{ margin: "6px 0 0" }}>We curate and describe products. When you click “View on AliExpress”, you complete your purchase on their site — they handle price, stock, delivery and returns.</p></div>
           <Link href="/affiliate-disclosure" className="btn btn-outline btn-sm">Our disclosure</Link>
         </div></div>
       </section>

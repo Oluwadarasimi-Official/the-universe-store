@@ -11,11 +11,6 @@ export function hostOf(u?: string | null): string | null {
   try { return u ? new URL(u).hostname.replace(/^www\./, "") : null; } catch { return null; }
 }
 
-export function isJumiaHost(u?: string | null): boolean {
-  const h = hostOf(u);
-  return !!h && /(^|\.)jumia\.[a-z.]+$/.test(h);
-}
-
 /* The store's AliExpress affiliate tracking ID — the account's only ID,
    verified live in the AliExpress Affiliate portal (Account → Tracking ID)
    on 24 Nov 2026: named "default", created 2026/11/24, marked Default.
@@ -28,11 +23,9 @@ export function isAliExpressHost(u?: string | null): boolean {
   return !!h && /(^|\.)aliexpress\.com$/.test(h);
 }
 
-/* Supported affiliate retailers, detected from a link's host. Add new
-   retailers here (and in the format tester) — never by hand-building links. */
-export function retailerOfHost(h?: string | null): "Jumia" | "AliExpress" | null {
+/* The store's affiliate retailer, detected from a link's host. */
+export function retailerOfHost(h?: string | null): "AliExpress" | null {
   if (!h) return null;
-  if (/(^|\.)jumia\.[a-z.]+$/.test(h)) return "Jumia";
   if (/(^|\.)aliexpress\.com$/.test(h)) return "AliExpress";
   return null;
 }

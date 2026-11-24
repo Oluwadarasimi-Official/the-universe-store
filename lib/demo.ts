@@ -37,7 +37,7 @@ export async function loadDemo(userId: string | null) {
   const now = new Date().toISOString();
   const rows = DEMO_PRODUCTS.map(([cat, title, short], i) => ({
     slug: `demo-${title.toLowerCase().replace(/^demo: /, "").replace(/\(sample listing\)/, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`,
-    title, short_description: short, category_id: id(cat), retailer_name: "Jumia", is_demo: true, editorial_status: "published", featured_flag: i < 4,
+    title, short_description: short, category_id: id(cat), retailer_name: "AliExpress", is_demo: true, editorial_status: "published", featured_flag: i < 4,
     full_description: "This is demo content. It shows how a product page will look once real, owner-verified products are added. It has no price, stock information or retailer link on purpose.",
     source_notes: "DEMO DATA — remove before launch (Settings → Demo data).", published_at: now, created_by: userId,
   }));

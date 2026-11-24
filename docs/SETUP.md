@@ -33,29 +33,20 @@ Everything lives in the `universe_store` schema, so the project can be shared wi
 3. You land in Universe Autopilot as Owner. The setup page locks itself once an Owner exists. Remove `ADMIN_SETUP_TOKEN` from Vercel afterwards.
 4. Sign-in: `/hq-autopilot-4x9/login` (rate-limited; sessions expire and refresh via Supabase; use **Sign out** on shared devices).
 
-## 4. Affiliate-link setup (Jumia / JForce)
-1. Get the affiliate account approved by Jumia (the account holder must meet the programme's age/terms requirements).
-2. For each product, generate the tracking link **inside the affiliate dashboard** and paste it into the product's *Affiliate tracking URL*.
-3. Use **Affiliate Links → Test a URL's format** (format only — not proof).
-4. Open the link yourself, confirm it lands on the right product and appears in your affiliate dashboard, then tick the confirmation and **Mark verified**. Only then does the store show “View on Jumia”.
-5. Replacing a URL resets it to unverified. “Mark broken” / “Disable” hide the button immediately. Visitors can report broken links from every product page.
-Never scrape Jumia, never build tracking links by hand, and do not imply Jumia endorses the store.
-
-## 4b. Affiliate-link setup (AliExpress)
-Same workflow as Jumia — the store supports both retailers, and the owner-verification rule is identical (no link is ever auto-verified).
+## 4. Affiliate-link setup (AliExpress)
 1. Your AliExpress Affiliate account must be approved first (https://portals.aliexpress.com — approval mail arrives at the registered email).
 2. **Tracking ID — already live: `default`.** The account's only tracking ID is `default` (verified in the AliExpress portal, Account → Tracking ID, 24 Nov 2026; created 2026/11/24, marked Default). The store ships with `default` as the value — migration `0004` seeds it, and the app falls back to it when the setting is missing — so the format tester checks against it immediately. If the ID ever changes, update it in Admin → Settings → **AliExpress tracking ID**. The ID is stored as a private site setting, never shown on the public site, and never put into a link by hand.
 3. For each product, generate the tracking link **inside the AliExpress portal** (a full `aliexpress.com` item link with tracking parameters, or an `s.click.aliexpress.com` short link) and paste it into the product's *Affiliate tracking URL*. Set the product's retailer name to **AliExpress** so the button reads “View on AliExpress”.
-4. Use **Affiliate Links → Test a URL's format**: it accepts Jumia and AliExpress hosts, and warns if an AliExpress link does not carry your tracking ID. Format only — not proof.
+4. Use **Affiliate Links → Test a URL's format** (format only — not proof): it accepts AliExpress hosts, and warns if an AliExpress link does not carry your tracking ID.
 5. Open the link yourself, confirm it lands on the right product and appears in your AliExpress portal reports, then tick the confirmation and **Mark verified**. Only then does the store show “View on AliExpress”.
-6. Replacing a URL resets it to unverified. “Mark broken” / “Disable” hide the button immediately.
+6. Replacing a URL resets it to unverified. “Mark broken” / “Disable” hide the button immediately. Visitors can report broken links from every product page.
 Never scrape AliExpress, never build tracking links by hand, and do not imply AliExpress endorses the store.
 
 ## 5. Integration status guide
 - **Connected** — the latest real test request succeeded. **Error** — the provider rejected the request (message shown). **Rate limited** — HTTP 429. **Not configured** — no key. Status is never assumed.
 - Fallback: providers are tried once each in the priority order (default DARAX → Gemini → Groq → OpenRouter). Every attempt is in the AI run log with the reason.
 - Social platforms: **manual publishing** (copy caption, copy link, export .txt, then “Mark Published (confirmed)”). Direct posting needs each platform's approved developer app and account authorisation and is not connected.
-- Jumia: manual links (no public API assumed). Email: not configured (messages go to Admin → Messages).
+- AliExpress: manual links (portal-generated; no public API assumed). Email: not configured (messages go to Admin → Messages).
 
 ## 6. Launch checklist
 1. Affiliate account approved; real products added with issued links; links verified.

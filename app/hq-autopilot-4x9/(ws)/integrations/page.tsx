@@ -70,7 +70,6 @@ export default async function Integrations({ searchParams }: { searchParams: Pro
       <h2 style={{ fontSize: "1.1rem" }}>Other connections</h2>
       <div className="table-wrap" style={{ marginBottom: 16 }}><table className="t cards"><thead><tr><th>Service</th><th>Status</th><th>Notes</th></tr></thead><tbody>
         <tr><td data-l="Service">Supabase (database & auth)</td><td data-l="Status"><Status s="Connected" /></td><td data-l="Notes" className="small">Free tier. Schema <code>universe_store</code>.</td></tr>
-        <tr><td data-l="Service">Jumia affiliate (JForce)</td><td data-l="Status"><span className="badge badge-gray">Manual</span></td><td data-l="Notes" className="small">No API/feed connected. Paste issued tracking links per product; verify them yourself. No scraping.</td></tr>
         <tr><td data-l="Service">Daily automations (Vercel Cron)</td><td data-l="Status"><span className={`badge ${process.env.CRON_SECRET ? "badge-green" : "badge-gray"}`}>{process.env.CRON_SECRET ? "Configured (daily)" : "Not configured"}</span></td><td data-l="Notes" className="small">Hobby plan allows one run per day. Use “Run now” in Automations any time.</td></tr>
         <tr><td data-l="Service">Email sending</td><td data-l="Status"><span className="badge badge-gray">Not configured</span></td><td data-l="Notes" className="small">Contact messages are stored in the Messages inbox instead.</td></tr>
       </tbody></table></div>

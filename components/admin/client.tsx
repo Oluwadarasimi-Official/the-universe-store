@@ -45,12 +45,10 @@ export function LinkFormatTester({ initial = "", trackingId = "" }: { initial?: 
       const x = new URL(u);
       const host = x.hostname.replace(/^www\./, "");
       const issues: string[] = [];
-      const isJumia = /(^|\.)jumia\.[a-z.]+$/.test(host);
       const isAli = /(^|\.)aliexpress\.com$/.test(host);
       const isAliShort = host === "s.click.aliexpress.com";
       if (x.protocol !== "https:") issues.push("not HTTPS");
-      if (!isJumia && !isAli) issues.push(`host is ${host} (not a Jumia or AliExpress domain)`);
-      if (isJumia && !x.search) issues.push("no query parameters — tracking IDs are usually in the query string; confirm this is the link JForce issued");
+      if (!isAli) issues.push(`host is ${host} (not an AliExpress domain)`);
       if (isAli && !isAliShort) {
         if (!x.search) issues.push("no query parameters — AliExpress tracking links carry tracking parameters; confirm this is the link the AliExpress portal issued");
         else if (trackingId && !u.includes(trackingId)) issues.push(`does not contain your AliExpress tracking ID (${trackingId}) — confirm this link was generated under your affiliate account`);
