@@ -16,6 +16,13 @@ export function isJumiaHost(u?: string | null): boolean {
   return !!h && /(^|\.)jumia\.[a-z.]+$/.test(h);
 }
 
+/* The store's AliExpress affiliate tracking ID — the account's only ID,
+   verified live in the AliExpress Affiliate portal (Account → Tracking ID)
+   on 24 Nov 2026: named "default", created 2026/11/24, marked Default.
+   Used as the fallback wherever the site_settings value is missing; the
+   Owner can override it in Admin → Settings, which always wins. */
+export const ALIEXPRESS_TRACKING_ID_DEFAULT = "default";
+
 export function isAliExpressHost(u?: string | null): boolean {
   const h = hostOf(u);
   return !!h && /(^|\.)aliexpress\.com$/.test(h);

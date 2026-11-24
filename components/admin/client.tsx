@@ -34,8 +34,9 @@ export function DownloadButton({ text, filename, label = "Download .txt" }: { te
 }
 
 /* Checks URL *format* only. Never marks a link valid.
-   trackingId is the AliExpress tracking ID from Settings (empty until the
-   Owner pastes it); when set, an AliExpress link is expected to carry it. */
+   trackingId is the AliExpress tracking ID from Settings (falls back to
+   "default", the account's only ID, when Settings has none); when set, an
+   AliExpress link is expected to carry it. */
 export function LinkFormatTester({ initial = "", trackingId = "" }: { initial?: string; trackingId?: string }) {
   const [u, setU] = useState(initial);
   let msg = "", ok = false;

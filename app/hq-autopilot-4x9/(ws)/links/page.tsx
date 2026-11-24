@@ -5,7 +5,7 @@ import { A } from "@/lib/admin";
 import { Empty, Flash, Head, Status } from "@/components/admin/ui";
 import { Submit, LinkFormatTester } from "@/components/admin/client";
 import { linkAction } from "../catalog-actions";
-import { fmtDate, hostOf } from "@/lib/util";
+import { fmtDate, hostOf, ALIEXPRESS_TRACKING_ID_DEFAULT } from "@/lib/util";
 
 export default async function Links({ searchParams }: { searchParams: Promise<Record<string, string>> }) {
   const me = await requireRole(); const sp = await searchParams;
@@ -14,7 +14,7 @@ export default async function Links({ searchParams }: { searchParams: Promise<Re
   if (sp.q) q = q.ilike("products.title", `%${sp.q.replace(/[%,]/g, "")}%`);
   const { data: links } = await q;
   const { data: aliRow } = await adminDb().from("site_settings").select("value").eq("key", "aliexpress_tracking_id").maybeSingle();
-  const aliTrackingId = typeof aliRow?.value === "string" ? aliRow.value : "";
+  const aliTrackingId = typeof aliRow?.value === "string" && aliRow.value ? aliRow.value : ALIEXPRESS_TRACKING_ID_DEFAULT;
   const { data: clicks } = await adminDb().from("click_events").select("link_id").eq("is_demo", false).limit(50000);
   const cc = new Map<string, number>(); (clicks || []).forEach((c) => c.link_id && cc.set(c.link_id, (cc.get(c.link_id) || 0) + 1));
   const owner = me.role === "owner";

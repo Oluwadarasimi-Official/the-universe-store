@@ -3,7 +3,7 @@ import { adminDb } from "@/lib/supabase/clients";
 import { Flash, Head, Status } from "@/components/admin/ui";
 import { Submit } from "@/components/admin/client";
 import { saveSettings, teamAction, demoAction } from "../system-actions";
-import { fmtDate } from "@/lib/util";
+import { fmtDate, ALIEXPRESS_TRACKING_ID_DEFAULT } from "@/lib/util";
 
 export default async function Settings({ searchParams }: { searchParams: Promise<Record<string, string>> }) {
   const me = await requireRole(["owner"]); const sp = await searchParams;
@@ -25,7 +25,7 @@ export default async function Settings({ searchParams }: { searchParams: Promise
           <div className="field"><label>Supported regions</label><input name="supported_regions" className="input" defaultValue={(v.supported_regions || []).join(", ")} /></div>
           <div className="field"><label>Default locale</label><input name="default_locale" className="input" defaultValue={v.default_locale} /></div>
           {["tiktok", "instagram", "facebook"].map((k) => <div key={k} className="field"><label>{k} URL</label><input name={`social_${k}`} type="url" className="input" defaultValue={v.social_links?.[k] || ""} placeholder="Hidden until set" /></div>)}
-          <div className="field"><label>AliExpress tracking ID</label><input name="aliexpress_tracking_id" className="input" defaultValue={v.aliexpress_tracking_id || ""} placeholder="Paste from your AliExpress affiliate portal — leave blank until set" /><span className="hint">Used only to check that an AliExpress link you paste carries your tracking ID. Links are always generated inside the AliExpress portal — never typed or built by hand.</span></div>
+          <div className="field"><label>AliExpress tracking ID</label><input name="aliexpress_tracking_id" className="input" defaultValue={v.aliexpress_tracking_id || ALIEXPRESS_TRACKING_ID_DEFAULT} /><span className="hint">Live value: “default” — the account&apos;s only tracking ID, verified in the AliExpress portal 24 Nov 2026. Used only to check that an AliExpress link you paste carries your tracking ID. Links are always generated inside the AliExpress portal — never typed or built by hand.</span></div>
           <div className="field span2"><label>Affiliate disclosure text</label><textarea name="affiliate_disclosure" className="textarea" defaultValue={v.affiliate_disclosure} /><span className="hint">Shown near products and retailer buttons. Only say “at no extra cost” if true under your programme terms. Never state a commission rate.</span></div>
           <div className="field"><label>Analytics retention (days)</label><input name="analytics_retention_days" type="number" min={30} max={730} className="input" defaultValue={v.analytics_retention_days} /></div>
           <label className="check"><input type="checkbox" name="automation_enabled" defaultChecked={v.automation_enabled === true} /> Automations master switch (daily scheduled runs)</label>
