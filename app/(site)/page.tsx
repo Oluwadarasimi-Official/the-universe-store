@@ -26,7 +26,7 @@ export default async function Home() {
             </div>
             <div className="trust-row">
               <span><i className="dot" /> No fake reviews or ratings</span>
-              <span><i className="dot" /> Prices shown with “last checked” dates</span>
+              <span><i className="dot" /> Any price shown carries a “last checked” date</span>
               <span><i className="dot" /> You buy on the retailer&apos;s site</span>
             </div>
           </div>
@@ -40,7 +40,7 @@ export default async function Home() {
           {cats.length ? (
             <div className="grid g3">
               {cats.slice(0, 8).map((c) => (
-                <Link key={c.id} href={`/categories/${c.slug}`} className="cat-tile"><span className="cat-icon" aria-hidden="true">{c.icon || CAT_ICON[c.slug] || "✦"}</span><span><b>{c.name}</b>{c.intro && <small>{c.intro.slice(0, 60)}{c.intro.length > 60 ? "…" : ""}</small>}</span></Link>
+                <Link key={c.id} href={`/categories/${c.slug}`} className="cat-tile"><span className="cat-icon" aria-hidden="true">{c.icon || CAT_ICON[c.slug] || "✦"}</span><span><b>{c.name}</b>{c.intro && <small className="clamp2">{c.intro}</small>}</span></Link>
               ))}
             </div>
           ) : <div className="empty"><p className="muted">Categories are being set up. Check back soon.</p></div>}

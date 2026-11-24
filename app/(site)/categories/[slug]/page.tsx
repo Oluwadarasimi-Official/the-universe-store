@@ -28,7 +28,7 @@ export default async function CategoryPage({ params, searchParams }: { params: P
       {c.intro && <p className="muted prose">{c.intro}</p>}
       <div className="row between" style={{ margin: "12px 0 16px" }}>
         <span className="small muted">{items.length} product{items.length === 1 ? "" : "s"}</span>
-        <div className="chips" style={{ marginTop: 0 }}>{[["new", "Newest"], ["az", "A–Z"], ["price_asc", "Price ↑"], ["price_desc", "Price ↓"]].map(([k, l]) => <Link key={k} className={`chip ${(sort || "new") === k ? "on" : ""}`} href={`/categories/${c.slug}?sort=${k}`}>{l}</Link>)}</div>
+        <div className="chips" style={{ marginTop: 0 }}>{[["new", "Newest"], ["az", "A–Z"], ...(items.some((p) => p.displayed_price != null) ? [["price_asc", "Price ↑"], ["price_desc", "Price ↓"]] : [])].map(([k, l]) => <Link key={k} className={`chip ${(sort || "new") === k ? "on" : ""}`} href={`/categories/${c.slug}?sort=${k}`}>{l}</Link>)}</div>
       </div>
       {items.length ? (<><div style={{ marginBottom: 16 }}><Disclosure text={s.disclosure} compact /></div><div className="grid g4">{items.map((p) => <ProductCard key={p.id} p={p} catSlug={c.slug} />)}</div></>)
         : <div className="empty"><div className="big">✦</div><h3>Nothing here yet</h3><p className="muted">We&apos;re still reviewing products for {c.name}.</p><Link className="btn btn-outline" href="/discover">Discover other products</Link></div>}

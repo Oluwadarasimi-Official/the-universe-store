@@ -7,7 +7,8 @@ import Tracker from "@/components/Tracker";
 
 export const metadata: Metadata = { title: "Discover products", description: "Search and browse products across every category on The Universe Store.", alternates: { canonical: "/discover" } };
 
-const SORTS = [["new", "Newest"], ["az", "A–Z"], ["price_asc", "Price: low to high"], ["price_desc", "Price: high to low"]];
+const BASE_SORTS = [["new", "Newest"], ["az", "A–Z"]];
+const PRICE_SORTS = [["price_asc", "Price: low to high"], ["price_desc", "Price: high to low"]];
 
 export default async function Discover({ searchParams }: { searchParams: Promise<Record<string, string | undefined>> }) {
   const sp = await searchParams;
@@ -32,7 +33,7 @@ export default async function Discover({ searchParams }: { searchParams: Promise
       </div>
       <div className="row between" style={{ margin: "16px 0" }}>
         <span className="small muted">{items.length} product{items.length === 1 ? "" : "s"}</span>
-        <div className="chips" style={{ marginTop: 0 }} aria-label="Sort">{SORTS.map(([k, l]) => <Link key={k} className={`chip ${(sp.sort || "new") === k ? "on" : ""}`} href={`/discover${qs({ sort: k })}`}>{l}</Link>)}</div>
+        <div className="chips" style={{ marginTop: 0 }} aria-label="Sort">{[...BASE_SORTS, ...(items.some((p) => p.displayed_price != null) ? PRICE_SORTS : [])].map(([k, l]) => <Link key={k} className={`chip ${(sp.sort || "new") === k ? "on" : ""}`} href={`/discover${qs({ sort: k })}`}>{l}</Link>)}</div>
       </div>
       {items.length ? (
         <>

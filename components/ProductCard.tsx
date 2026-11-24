@@ -14,7 +14,7 @@ export default function ProductCard({ p, catSlug, priority = false }: { p: Produ
     <Link href={`/p/${p.slug}`} className="p-card">
       <div className="p-media">
         {img ? <img src={img.url} alt={img.alt_text} width={400} height={400} loading={priority ? "eager" : "lazy"} decoding="async" /> : (
-          <div className="p-ph" aria-hidden="true"><span className="big">{CAT_ICON[catSlug || ""] || "✦"}</span><small>Image not provided</small></div>
+          <div className="p-ph" aria-hidden="true"><img src="/brand/mark-96.png" alt="" width={56} height={56} style={{ opacity: 0.35, width: 56, height: 56, padding: 0 }} /><small>Image not provided</small></div>
         )}
         {p.is_demo && <span className="badge badge-demo">Demo</span>}
       </div>

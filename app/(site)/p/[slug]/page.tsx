@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getCategories, getGuides, getProduct, getProducts, getSettings } from "@/lib/data";
-import ProductCard, { CAT_ICON } from "@/components/ProductCard";
+import ProductCard from "@/components/ProductCard";
 import Disclosure from "@/components/Disclosure";
 import Tracker from "@/components/Tracker";
 import { fmtDate, formatPrice } from "@/lib/util";
@@ -56,7 +56,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       <div className="pd" style={{ marginTop: 16 }}>
         <div>
           <div className="gallery-main" id="img-0">
-            {p.images?.[0] ? <img src={p.images[0].url} alt={p.images[0].alt_text} width={640} height={640} fetchPriority="high" /> : <div className="p-ph"><span className="big" style={{ fontSize: "4rem" }}>{CAT_ICON[cat?.slug || ""] || "✦"}</span><small>Image not provided</small></div>}
+            {p.images?.[0] ? <img src={p.images[0].url} alt={p.images[0].alt_text} width={640} height={640} fetchPriority="high" /> : <div className="p-ph"><img src="/brand/mark-96.png" alt="" width={96} height={96} style={{ opacity: 0.35 }} /><small>Image not provided</small></div>}
           </div>
           {p.images && p.images.length > 1 && (
             <div className="thumbs">{p.images.map((im, i) => <a key={i} href={im.url} target="_blank" rel="noopener noreferrer" aria-label={`Open image ${i + 1}: ${im.alt_text}`}><img src={im.url} alt="" width={64} height={64} loading="lazy" /></a>)}</div>
