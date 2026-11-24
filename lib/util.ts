@@ -16,6 +16,20 @@ export function isJumiaHost(u?: string | null): boolean {
   return !!h && /(^|\.)jumia\.[a-z.]+$/.test(h);
 }
 
+export function isAliExpressHost(u?: string | null): boolean {
+  const h = hostOf(u);
+  return !!h && /(^|\.)aliexpress\.com$/.test(h);
+}
+
+/* Supported affiliate retailers, detected from a link's host. Add new
+   retailers here (and in the format tester) — never by hand-building links. */
+export function retailerOfHost(h?: string | null): "Jumia" | "AliExpress" | null {
+  if (!h) return null;
+  if (/(^|\.)jumia\.[a-z.]+$/.test(h)) return "Jumia";
+  if (/(^|\.)aliexpress\.com$/.test(h)) return "AliExpress";
+  return null;
+}
+
 export function formatPrice(amount?: number | string | null, currency?: string | null): string | null {
   if (amount === null || amount === undefined || amount === "" || !currency) return null;
   const n = Number(amount);

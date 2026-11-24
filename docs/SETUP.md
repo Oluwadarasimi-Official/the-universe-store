@@ -21,7 +21,7 @@ AI keys can alternatively be pasted in **Admin → Integrations** (Owner only); 
 
 ## 2. Database
 Run, in order, in the Supabase SQL editor (or via the Management API):
-`supabase/migrations/0001_universe_store_schema.sql`, `0002_outbound_flags.sql`, `0003_member_link_requests.sql`, then optionally `supabase/seed.sql` (starter categories + clearly-labelled demo items).
+`supabase/migrations/0001_universe_store_schema.sql`, `0002_outbound_flags.sql`, `0003_member_link_requests.sql`, `0004_aliexpress_tracking_id.sql`, then optionally `supabase/seed.sql` (starter categories + clearly-labelled demo items).
 Then add `universe_store` to **Project Settings → API → Exposed schemas** (keep existing schemas).
 Everything lives in the `universe_store` schema, so the project can be shared with other apps without touching their tables.
 
@@ -40,6 +40,16 @@ Everything lives in the `universe_store` schema, so the project can be shared wi
 4. Open the link yourself, confirm it lands on the right product and appears in your affiliate dashboard, then tick the confirmation and **Mark verified**. Only then does the store show “View on Jumia”.
 5. Replacing a URL resets it to unverified. “Mark broken” / “Disable” hide the button immediately. Visitors can report broken links from every product page.
 Never scrape Jumia, never build tracking links by hand, and do not imply Jumia endorses the store.
+
+## 4b. Affiliate-link setup (AliExpress)
+Same workflow as Jumia — the store supports both retailers, and the owner-verification rule is identical (no link is ever auto-verified).
+1. Your AliExpress Affiliate account must be approved first (https://portals.aliexpress.com — approval mail arrives at the registered email).
+2. **Paste your tracking ID once:** Admin → Settings → **AliExpress tracking ID**. Find it in the AliExpress portal (your publisher/tracking ID). Until it is set, the format tester cannot check an AliExpress link against it — links still work, but the check is skipped. The ID is stored as a private site setting, never shown on the public site, and never put into a link by hand.
+3. For each product, generate the tracking link **inside the AliExpress portal** (a full `aliexpress.com` item link with tracking parameters, or an `s.click.aliexpress.com` short link) and paste it into the product's *Affiliate tracking URL*. Set the product's retailer name to **AliExpress** so the button reads “View on AliExpress”.
+4. Use **Affiliate Links → Test a URL's format**: it accepts Jumia and AliExpress hosts, and warns if an AliExpress link does not carry your tracking ID. Format only — not proof.
+5. Open the link yourself, confirm it lands on the right product and appears in your AliExpress portal reports, then tick the confirmation and **Mark verified**. Only then does the store show “View on AliExpress”.
+6. Replacing a URL resets it to unverified. “Mark broken” / “Disable” hide the button immediately.
+Never scrape AliExpress, never build tracking links by hand, and do not imply AliExpress endorses the store.
 
 ## 5. Integration status guide
 - **Connected** — the latest real test request succeeded. **Error** — the provider rejected the request (message shown). **Rate limited** — HTTP 429. **Not configured** — no key. Status is never assumed.

@@ -5,7 +5,7 @@ import { getCategories, getGuides, getProduct, getProducts, getSettings } from "
 import ProductCard from "@/components/ProductCard";
 import Disclosure from "@/components/Disclosure";
 import Tracker from "@/components/Tracker";
-import { fmtDate, formatPrice } from "@/lib/util";
+import { fmtDate, formatPrice, isAliExpressHost, isJumiaHost } from "@/lib/util";
 import { siteUrl } from "@/lib/config";
 
 export const revalidate = 300;
@@ -32,8 +32,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const [related, guides] = await Promise.all([cat ? getProducts({ category: cat.id, excludeId: p.id, limit: 4 }) : Promise.resolve([]), getGuides(undefined, 50)]);
   const relGuides = guides.filter((g) => g.product_ids?.includes(p.id)).slice(0, 3);
   const price = formatPrice(p.displayed_price, p.currency);
-  const isJumia = !!p.outbound_host && /(^|\.)jumia\./.test(p.outbound_host);
-  const ctaLabel = isJumia ? "View on Jumia" : `View on ${p.retailer_name || "retailer site"}`;
+  const isJumia = isJumiaHost(p.outbound_host);
+  const isAliExpress = isAliExpressHost(p.outbound_host);
+  const ctaLabel = isJumia ? "View on Jumia" : isAliExpress ? "View on AliExpress" : `View on ${p.retailer_name || "retailer site"}`;
   const specs = Array.isArray(p.specifications) ? p.specifications.filter((x) => x?.key && x?.value) : [];
 
   const ld: any = { "@context": "https://schema.org", "@type": "Product", name: p.title, description: p.short_description || undefined, url: `${siteUrl()}/p/${p.slug}` };

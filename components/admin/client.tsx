@@ -33,8 +33,10 @@ export function DownloadButton({ text, filename, label = "Download .txt" }: { te
   );
 }
 
-/* Checks URL *format* only. Never marks a link valid. */
-export function LinkFormatTester({ initial = "" }: { initial?: string }) {
+/* Checks URL *format* only. Never marks a link valid.
+   trackingId is the AliExpress tracking ID from Settings (empty until the
+   Owner pastes it); when set, an AliExpress link is expected to carry it. */
+export function LinkFormatTester({ initial = "", trackingId = "" }: { initial?: string; trackingId?: string }) {
   const [u, setU] = useState(initial);
   let msg = "", ok = false;
   if (u) {
@@ -42,9 +44,16 @@ export function LinkFormatTester({ initial = "" }: { initial?: string }) {
       const x = new URL(u);
       const host = x.hostname.replace(/^www\./, "");
       const issues: string[] = [];
+      const isJumia = /(^|\.)jumia\.[a-z.]+$/.test(host);
+      const isAli = /(^|\.)aliexpress\.com$/.test(host);
+      const isAliShort = host === "s.click.aliexpress.com";
       if (x.protocol !== "https:") issues.push("not HTTPS");
-      if (!/jumia\./.test(host)) issues.push(`host is ${host} (not a Jumia domain)`);
-      if (!x.search) issues.push("no query parameters — tracking IDs are usually in the query string; confirm this is the link JForce issued");
+      if (!isJumia && !isAli) issues.push(`host is ${host} (not a Jumia or AliExpress domain)`);
+      if (isJumia && !x.search) issues.push("no query parameters — tracking IDs are usually in the query string; confirm this is the link JForce issued");
+      if (isAli && !isAliShort) {
+        if (!x.search) issues.push("no query parameters — AliExpress tracking links carry tracking parameters; confirm this is the link the AliExpress portal issued");
+        else if (trackingId && !u.includes(trackingId)) issues.push(`does not contain your AliExpress tracking ID (${trackingId}) — confirm this link was generated under your affiliate account`);
+      }
       ok = issues.length === 0;
       msg = ok ? `Format looks OK (${host}). This does NOT prove the link works or tracks — open it and confirm in your affiliate dashboard, then mark it verified.` : `Check: ${issues.join("; ")}.`;
     } catch { msg = "Not a valid URL."; }

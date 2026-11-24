@@ -11,7 +11,9 @@ import { runJob } from "@/lib/automations";
 import { screenProduct } from "@/lib/safety";
 
 const db = () => adminDb();
-const setSetting = (key: string, value: unknown, uid: string) => db().from("site_settings").update({ value, updated_by: uid }).eq("key", key);
+/* Upsert so a setting saves even if its row was never seeded (e.g. a key
+   added after the first migration run). Only value/updated_by are touched. */
+const setSetting = (key: string, value: unknown, uid: string) => db().from("site_settings").upsert({ key, value, updated_by: uid }, { onConflict: "key" });
 
 export async function saveSettings(fd: FormData) {
   await act("/settings", async () => {
@@ -30,6 +32,8 @@ export async function saveSettings(fd: FormData) {
     if (!/^[A-Z]{3}$/.test(cur)) throw new Error("Currency must be a 3-letter code.");
     const retention = Number(str(fd, "analytics_retention_days"));
     if (!(retention >= 30 && retention <= 730)) throw new Error("Retention must be between 30 and 730 days.");
+    const aliId = optStr(fd, "aliexpress_tracking_id");
+    if (aliId && !/^[A-Za-z0-9_-]{3,64}$/.test(aliId)) throw new Error("AliExpress tracking ID looks wrong — paste the ID exactly as the AliExpress portal shows it.");
     await Promise.all([
       setSetting("site_title", str(fd, "site_title") || "THE UNIVERSE STORE", me.user_id),
       setSetting("tagline", str(fd, "tagline") || "Everything Worth Discovering.", me.user_id),
@@ -41,6 +45,7 @@ export async function saveSettings(fd: FormData) {
       setSetting("default_locale", str(fd, "default_locale") || "en-NG", me.user_id),
       setSetting("analytics_retention_days", retention, me.user_id),
       setSetting("automation_enabled", fd.get("automation_enabled") === "on", me.user_id),
+      setSetting("aliexpress_tracking_id", aliId || null, me.user_id),
     ]);
     await audit(me, "settings.update", "site_settings");
     revalidatePublic();

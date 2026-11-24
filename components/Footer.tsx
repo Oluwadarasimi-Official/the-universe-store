@@ -3,6 +3,7 @@ import { getSettings } from "@/lib/data";
 
 export default async function Footer() {
   const s = await getSettings();
+  const SOCIAL_LABEL: Record<string, string> = { tiktok: "TikTok", instagram: "Instagram", facebook: "Facebook" };
   const social = Object.entries(s.social || {}).filter(([, v]) => !!v) as [string, string][];
   return (
     <footer className="site-footer">
@@ -24,7 +25,7 @@ export default async function Footer() {
         <div>
           <h4>Legal</h4>
           <ul><li><Link href="/affiliate-disclosure">Affiliate disclosure</Link></li><li><Link href="/privacy">Privacy policy</Link></li><li><Link href="/terms">Terms</Link></li></ul>
-          {social.length > 0 && (<><h4 style={{ marginTop: 20 }}>Follow</h4><ul>{social.map(([k, v]) => <li key={k}><a href={v} target="_blank" rel="noopener noreferrer">{k[0].toUpperCase() + k.slice(1)}</a></li>)}</ul></>)}
+          {social.length > 0 && (<><h4 style={{ marginTop: 20 }}>Follow</h4><ul>{social.map(([k, v]) => <li key={k}><a href={v} target="_blank" rel="noopener noreferrer">{SOCIAL_LABEL[k] || (k[0].toUpperCase() + k.slice(1))}</a></li>)}</ul></>)}
         </div>
       </div>
       <div className="wrap footer-bottom">

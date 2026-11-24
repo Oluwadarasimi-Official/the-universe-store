@@ -30,7 +30,10 @@ export default async function Home() {
               <span><i className="dot" /> You buy on the retailer&apos;s site</span>
             </div>
           </div>
-          <img className="hero-logo" src="/brand/logo-512.webp" alt="The Universe Store — Everything Worth Discovering." width={360} height={360} fetchPriority="high" />
+          <div className="hero-brand">
+            <img className="hero-mark" src="/brand/mark-96.png" alt="The Universe Store" width={120} height={120} fetchPriority="high" />
+            <p className="hero-wordmark">THE UNIVERSE STORE</p>
+          </div>
         </div>
       </section>
 

@@ -34,10 +34,15 @@ export const getCategories = cache(async () =>
 export const getSettings = cache(async () => {
   const rows = await safe<any[]>(publicDb().from("site_settings").select("key,value"), []);
   const m: Record<string, any> = Object.fromEntries(rows.map((r) => [r.key, r.value]));
+  const social: Record<string, string | null> = (m.social_links as Record<string, string | null>) || {};
+  /* The store's own Instagram (@theuniversestore). It shows in the footer
+     until the Owner sets (or clears) it in Admin → Settings, which always
+     wins. Facebook/TikTok have no default — their real URLs are unknown. */
+  if (!social.instagram) social.instagram = "https://www.instagram.com/theuniversestore";
   return {
     disclosure: (m.affiliate_disclosure as string) || "The Universe Store may earn a commission when you buy through qualifying links on this site, at no extra cost to you. Prices, stock, shipping, returns and purchase terms are set by the retailer and can change.",
     contactEmail: (m.contact_email as string | null) || null,
-    social: (m.social_links as Record<string, string | null>) || {},
+    social,
     currency: (m.currency_display as string) || "NGN",
   };
 });

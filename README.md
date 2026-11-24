@@ -1,7 +1,7 @@
 # THE UNIVERSE STORE — *Everything Worth Discovering.*
 
 Affiliate-first product-discovery storefront with a private owner workspace, **Universe Autopilot**.
-Visitors discover products here and buy on the retailer's site (Jumia first) through owner-verified affiliate links.
+Visitors discover products here and buy on the retailer's site (Jumia and AliExpress) through owner-verified affiliate links.
 There is no checkout, payment, stock or shipping in this app — by design.
 
 **Stack:** Next.js 15 (App Router, TypeScript) · Supabase (Postgres + Auth + RLS, free tier) · Vercel (Hobby, free).

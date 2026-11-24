@@ -13,6 +13,8 @@ export default async function Links({ searchParams }: { searchParams: Promise<Re
   if (sp.status) q = q.eq("status", sp.status);
   if (sp.q) q = q.ilike("products.title", `%${sp.q.replace(/[%,]/g, "")}%`);
   const { data: links } = await q;
+  const { data: aliRow } = await adminDb().from("site_settings").select("value").eq("key", "aliexpress_tracking_id").maybeSingle();
+  const aliTrackingId = typeof aliRow?.value === "string" ? aliRow.value : "";
   const { data: clicks } = await adminDb().from("click_events").select("link_id").eq("is_demo", false).limit(50000);
   const cc = new Map<string, number>(); (clicks || []).forEach((c) => c.link_id && cc.set(c.link_id, (cc.get(c.link_id) || 0) + 1));
   const owner = me.role === "owner";
@@ -20,7 +22,7 @@ export default async function Links({ searchParams }: { searchParams: Promise<Re
     <>
       <Head title="Affiliate links" desc="Paste only links issued by your affiliate programme. A link is shown on the store only after you mark it “Verified by owner”. URL format checks never count as verification." />
       <Flash sp={sp} />
-      <div className="card card-pad" style={{ marginBottom: 16 }}><LinkFormatTester /></div>
+      <div className="card card-pad" style={{ marginBottom: 16 }}><LinkFormatTester trackingId={aliTrackingId} /></div>
       <form className="row" style={{ marginBottom: 12 }}>
         <input className="input" name="q" defaultValue={sp.q} placeholder="Product title…" style={{ maxWidth: 240 }} />
         <select className="select" name="status" defaultValue={sp.status || ""} style={{ maxWidth: 220 }}><option value="">All</option><option value="unverified">Awaiting verification</option><option value="verified">Verified</option><option value="broken">Reported broken</option><option value="disabled">Disabled</option></select>
